@@ -55,7 +55,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark nav nav-pills nav-fill">
       <h1 class="navbar-brand">吳柏HITS</h1>
       <div class="nav-item nav-link active" onclick=backedit(this)>無套名單</div>
-  		<div class="nav-item nav-link disabled"onclick=testa(this)>null</div>
+  		<div class="nav-item nav-link"onclick=testa(this)>無套統計</div>
  		  <div class="nav-item nav-link disabled"onclick=testg(this)>null</div>
     </nav>
   </div>
@@ -141,8 +141,17 @@ function copytext(tt){
 	
 	}
 
-
-		
+function testa(th){
+		uri= 'sqllib.php?a=analytics'; 
+	  $.ajax({ url: uri, cache: false  }) .done(function( msg ) { 
+    //	 $(th).next().html('<br>'+msg);
+    	 //$(th).css('backgroundColor','rgb(250, 255, 189)' );
+    	$('.container').hide();
+    	$('.analytics').html(msg);
+    	$('.analytics').show();
+    	});
+	}
+	
 var activeNavItem = $('.nav-item');
 
 activeNavItem.click(function(){

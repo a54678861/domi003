@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+
 
 $con = new SQLite3('sql.db');
 
@@ -182,11 +182,10 @@ while ($row = $results->fetchArray(SQLITE3_ASSOC)){
 }
 
 function top6($con) {
-         $sqlc="select *,count(log) as total from mlaw2_log where status = 'v' GROUP BY log order by total DESC";
-				 $csc = mysqli_query($con, $sqlc);
+				$results = $con->query('select chara,count(chara) as total from uberhits GROUP BY chara order by total DESC');
 				 $result = array();
-				 while ($row = $csc->fetch_array(MYSQLI_ASSOC)){
-		 			$log=$row['log'];
+				 while ($row = $results->fetchArray(SQLITE3_ASSOC)){
+		 			$log=$row['chara'];
  				  $total=$row['total'];
  				  $tt = array($log,$total) ;
   		  	array_push($result,$tt);
@@ -208,16 +207,13 @@ while ($rowc = $csc->fetch_array(MYSQLI_ASSOC)){
      echo $result;    
 }
 function used($con) {
-         $sqlc="select count(*) as total from mlaw2_log"; //總使用次數
-				 $csc = mysqli_query($con, $sqlc);
-				 $row = $csc->fetch_assoc() ;
-				 $total = $row['total'];
-				 $ho = date('Y/n/j');
-				 $sqlc2="select count(*) as total from mlaw2_log where bdate = '$ho'"; //今日使用次數
-				 $csc = mysqli_query($con, $sqlc2);
-				 $row = $csc->fetch_assoc() ;
-				 $today = $row['total'];
-				 $result = array($total,$today);
+				 $results = $con->query('select chara,count(chara) as total from uberhits GROUP BY chara order by total DESC limit 1');
+				 $row = $results->fetchArray(SQLITE3_ASSOC);
+				 $chara = $row['chara'];
+				 $results = $con->query('select lv,count(lv) as total from uberhits GROUP BY lv order by total DESC limit 1');
+				 $row = $results->fetchArray(SQLITE3_ASSOC);
+				 $lv = $row['lv'];
+				 $result = array($lv,$chara);
 				 $result = json_encode($result);
 				echo $result;
 	} 
