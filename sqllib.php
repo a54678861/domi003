@@ -39,23 +39,6 @@ if ($a=='top6')  top6($con);
 if ($a=='failed')  failed($con);
 if ($a=='used')  used($con);
 
-
-
-
-
-
-function connnetDb(){
-    //連線mysql資料庫
-    $conn=mysql_connect(MYSQL_HOST,MYSQL_USER,MYSQL_PW);
-    //排除連線資料庫異常錯誤
-    if(!$conn){
-        die('can not connect db');
-    }
-    //在mysql中選中myapp資料庫
-    mysql_select_db("i3spa");
-    return $conn;
-}
-
 function uudata($con,$tb,$id,$vv){
 	      // $p2 = ""; 
 	      //if ( substr($id,0,5) =='newpd' )  $p2  = get1field("select prdt_name from product where prdt_no = '$vv'");	 
