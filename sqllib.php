@@ -103,38 +103,37 @@ while ($row = $results->fetchArray(SQLITE3_ASSOC)){
 }
 
 function top6($con) {
-				$results = $con->query('select chara,count(chara) as total from uberhits GROUP BY chara order by total DESC');
-				 $result = array();
-				 while ($row = $results->fetchArray(SQLITE3_ASSOC)){
-		 			$log=$row['chara'];
- 				  $total=$row['total'];
- 				  $tt = array($log,$total) ;
-  		  	array_push($result,$tt);
-				}
-				$result = json_encode($result);
-				echo $result;
+	$results = $con->query('select chara,count(chara) as total from uberhits GROUP BY chara order by total DESC');
+	$result = array();
+	while ($row = $results->fetchArray(SQLITE3_ASSOC)){
+		$log=$row['chara'];
+ 		$total=$row['total'];
+ 		$tt = array($log,$total) ;
+  		array_push($result,$tt);
+		}
+	$result = json_encode($result);
+	echo $result;
 	} 
 	
 function failed($con){
-				$sqlc = "select *,count(log) as total from mlaw2_log where status = 'x' GROUP BY log order by total DESC";
-				$csc = mysqli_query($con, $sqlc); 
-				$result='';
+	$sqlc = "select *,count(log) as total from mlaw2_log where status = 'x' GROUP BY log order by total DESC";
+	$csc = mysqli_query($con, $sqlc); 
+	$result='';
 while ($rowc = $csc->fetch_array(MYSQLI_ASSOC)){ 
     $log=$rowc['log'];
     $total=$rowc['total'];
     $result .= "<tr><td>$log</td><td>$total</td><td></td></tr>";
-
 }
      echo $result;    
 }
 function used($con) {
-				 $results = $con->query('select chara,count(chara) as total from uberhits GROUP BY chara order by total DESC limit 1');
-				 $row = $results->fetchArray(SQLITE3_ASSOC);
-				 $chara = $row['chara'];
-				 $results = $con->query('select lv,count(lv) as total from uberhits GROUP BY lv order by total DESC limit 1');
-				 $row = $results->fetchArray(SQLITE3_ASSOC);
-				 $lv = $row['lv'];
-				 $result = array($lv,$chara);
-				 $result = json_encode($result);
-				echo $result;
-	} 
+	$results = $con->query('select chara,count(chara) as total from uberhits GROUP BY chara order by total DESC limit 1');
+	$row = $results->fetchArray(SQLITE3_ASSOC);
+	$chara = $row['chara'];
+	$results = $con->query('select lv,count(lv) as total from uberhits GROUP BY lv order by total DESC limit 1');
+	$row = $results->fetchArray(SQLITE3_ASSOC);
+	$lv = $row['lv'];
+	$result = array($lv,$chara);
+	$result = json_encode($result);
+	echo $result;
+} 
