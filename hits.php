@@ -72,7 +72,7 @@
 <table class="table table-bordered table-hover">
     <tr><th>編號</th><th>玩家名稱</th><th>等級</th><th>網址</th><th>狀態</th><th>腳色名稱</th><th>還可以扁</th></tr>
 <?php
-$results = $con->query('SELECT * FROM uberhits');
+$results = $con->query('SELECT * FROM uberhits limit 200');
 while ($row = $results->fetchArray(SQLITE3_ASSOC)){
 	$id= $row['id'];
     $name= $row['name'];
